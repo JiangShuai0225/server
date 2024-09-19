@@ -44,8 +44,8 @@ def home(request): # 总共单数，待分配工单数， 待处理工单数 ，
   ticket_unhandled = Tickets.objects.filter(status=0).count()
   ticket_handled = Tickets.objects.filter(status=1).count()
   ticket_finished = Tickets.objects.filter(status=2).count()
-  ticket_today_created = Tickets.objects.filter(createtime__gt=today).count()
-  ticket_today_end = Tickets.objects.filter(endtime__gte=today).count()
+  ticket_today_created = Tickets.objects.filter(create_time__gte=today).count()
+  ticket_today_end = Tickets.objects.filter(end_time__gte=today).count()
   user_online = Users.objects.filter(status=1 | 2).count()
   user_leave = Users.objects.filter(status=0).count()
   data = {
