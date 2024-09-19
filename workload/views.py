@@ -188,13 +188,12 @@ def leaveaudit(request):
   id = request.data.get('id')
   status = request.data.get('status')
   try:
-    UserLeave.objects.filter(id=id).update(status=status)
+    UserLeave.objects.get(id=id).update(status=status)
+    print(f'Audit success for leave id: {id}')
     return JsonResponse({'status': True, 'message': '审核成功', 'data': {}})
   except:
     return JsonResponse({'status': True, 'message': '', 'data': {}})
   
-# do something for test git
-#aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 def banned(request):
   role = request.payload.get('role')
   if role != 1:
