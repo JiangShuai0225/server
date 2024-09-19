@@ -41,7 +41,9 @@ MIDDLEWARE = [
     'workload.middlewares.JwtVerifyMiddleware.JwtVerifyMiddleware',
     'workload.middlewares.TimeShowMiddleware.TimeShowMiddleware',
 ]
-
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_HEADERS = ('*')
 ROOT_URLCONF = 'workload.urls'
 
 TEMPLATES = []

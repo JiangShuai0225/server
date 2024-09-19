@@ -11,6 +11,9 @@ from server import settings
 
 
 
+def token_verify(request):
+  payload = request.payload
+  return JsonResponse({ 'status': True, 'message': '', 'data': payload })
 
 # Create your views here.
 
@@ -60,7 +63,7 @@ def home(request): # 总共单数，待分配工单数， 待处理工单数 ，
 def userlist(request):
   role = request.payload.get('role')
   if role == 1:
-    users = Users.objects.all().iteratoe()
+    users = Users.objects.filter(status=0|1|2).iterator()
     data = [
       {
         'id': user.id,
@@ -111,6 +114,21 @@ def useredit(request):
       user.status = status
     user.nickname = nickname
     user.telephone = telephone
+    user.save()
+    return JsonResponse({'status': True, 'message': '修改成功', 'data': {}})
+  except Users.DoesNotExist:
+    return JsonResponse({'status': False, 'message': '用户不存在', 'data': {}})
+
+def updatepassword(request):
+  role = request.payload.get('role')
+  ID = request.payload.get('id')
+  id = request.data.get('id')
+  password = request.data.get('password')
+  if role != 1 & ID != id:
+    return JsonResponse({'status': False, 'message': '权限不足', 'data': {}})
+  try:
+    user = Users.objects.get(id=id)
+    user.password = password
     user.save()
     return JsonResponse({'status': True, 'message': '修改成功', 'data': {}})
   except Users.DoesNotExist:
@@ -179,12 +197,12 @@ def banned(request):
     return JsonResponse({'status': False, 'message': '权限不足', 'data': {}})
   id = request.data.get('id')
   try:
-    userleave = UserLeave.objects.filter(id=id)
-    if userleave.banned == True:
-      userleave.banned = False
+    user = Users.objects.get(id=id)
+    if user.banned == True:
+      user.banned = False
     else:
-      userleave.banned = True
-    userleave.save()
+      user.banned = True
+    user.save()
     return JsonResponse({'status': True, 'message': '操作成功', 'data': {}})
   except:
     return JsonResponse({'status': False, 'message': '用户不存在', 'data': {}})

@@ -19,10 +19,12 @@ from django.urls import path
 
 urlpatterns = [
   path('api/login', views.login, name='login'),  # ok
+  path('api/token/verify',            views.token_verify,             name='token_verify'             ),
   path('api/home', views.home, name='home'), # 
   path('api/user/list', views.userlist, name='userlist'), # ok
   path('api/user/add', views.useradd, name='useradd'), # ok
   path('api/user/edit', views.useredit, name='useredit'), # ok
+  path('api/user/password/update', views.updatepassword, name='updatepassword'), # ok
   path('api/user/del', views.userdel, name='userdel'), # ok
   path('api/user/leave', views.userleave, name='userleave'), # ok
   path('api/user/leave/list', views.userleavelist, name='userleavelist'), # ok
