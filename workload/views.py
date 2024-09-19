@@ -191,6 +191,8 @@ def leaveaudit(request):
   except:
     return JsonResponse({'status': True, 'message': '', 'data': {}})
   
+# do something for test git
+#aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 def banned(request):
   role = request.payload.get('role')
   if role != 1:
