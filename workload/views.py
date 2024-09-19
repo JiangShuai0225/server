@@ -188,8 +188,10 @@ def leaveaudit(request):
   id = request.data.get('id')
   status = request.data.get('status')
   try:
-    UserLeave.objects.get(id=id).update(status=status)
-    print(f'Audit success for leave id: {id}')
+    userleave = UserLeave.objects.get(id=id)
+    status = userleave.status
+    userleave.status = status
+    userleave.save()
     return JsonResponse({'status': True, 'message': '审核成功', 'data': {}})
   except Exception as e:
     print(e)
