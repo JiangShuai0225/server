@@ -8,6 +8,7 @@ from django.http import JsonResponse
 import jwt
 from .models import *
 from server import settings
+from django.db.models import Q
 
 
 
@@ -63,7 +64,7 @@ def home(request): # 总共单数，待分配工单数， 待处理工单数 ，
 def userlist(request):
   role = request.payload.get('role')
   if role == 1:
-    users = Users.objects.filter(status=0|status=1|status=2).iterator()
+    users = Users.objects.filter(Q(status=0) | Q(status=1) | Q(status=2)).iterator()
     data = [
       {
         'id': user.id,
