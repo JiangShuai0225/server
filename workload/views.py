@@ -136,17 +136,17 @@ def updatepassword(request):
   except Users.DoesNotExist:
     return JsonResponse({'status': False, 'message': '用户不存在', 'data': {}})
 
-def userdel(request):
-  role = request.payload.get('role')
-  id = request.data.get('id')
-  if role != 1:
-    return JsonResponse({'status': False, 'message': '权限不足', 'data': {}})
-  try:
-     user = Users.objects.get(id=id)
-     user.delete()
-     return JsonResponse({'status': True, 'message': '删除成功', 'data': {}})
-  except Users.DoesNotExist:
-    return JsonResponse({'status': False, 'message': '用户不存在', 'data': {}})
+# def userdel(request):
+#   role = request.payload.get('role')
+#   id = request.data.get('id')
+#   if role != 1:
+#     return JsonResponse({'status': False, 'message': '权限不足', 'data': {}})
+#   try:
+#      user = Users.objects.get(id=id)
+#      user.delete()
+#      return JsonResponse({'status': True, 'message': '删除成功', 'data': {}})
+#   except Users.DoesNotExist:
+#     return JsonResponse({'status': False, 'message': '用户不存在', 'data': {}})
   
 def userleave(request):
   id = request.data.get('id')
