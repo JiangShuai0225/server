@@ -193,7 +193,7 @@ def leaveaudit(request):
     return JsonResponse({'status': True, 'message': '审核成功', 'data': {}})
   except Exception as e:
     print(e)
-    return JsonResponse({'status': False, 'message': e, 'data': {}})
+    return JsonResponse({'status': False, 'message': str(e), 'data': {}})
   
 def banned(request):
   role = request.payload.get('role')
