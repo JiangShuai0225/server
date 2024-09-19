@@ -39,7 +39,7 @@ def login(request):
     return JsonResponse({ 'status': False, 'message': '账号或密码错误', 'data': {} })
 
 def home(request): # 总共单数，待分配工单数， 待处理工单数 ， 已完成工单数，今日在线人数， 今日新增工单数， 今日已处理工单数， 今日请假人数
-  today = int(datetime.datetime.now().strftime('%Y-%m-%d').timestamp()) - 1577808000
+  today = int(datetime.datetime.strptime(datetime.datetime.now().strftime('%Y-%m-%d'), '%Y-%m-%d').timestamp()) - 1577808000
   ticket_total= Tickets.objects.count()
   ticket_unhandled = Tickets.objects.filter(status=0).count()
   ticket_handled = Tickets.objects.filter(status=1).count()
