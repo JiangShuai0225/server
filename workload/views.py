@@ -58,7 +58,7 @@ def home(request): # 总共单数，待分配工单数， 待处理工单数 ，
     'user_online': user_online,
     'user_leave': user_leave,
   }
-  return JsonResponse({'status': True, 'message': '', 'data': data})
+  return JsonResponse({'status': True, 'message': '', 'data': { 'data': data }})
 
 def userlist(request):
   role = request.payload.get('role')
@@ -77,7 +77,8 @@ def userlist(request):
     ]
   else:
     data = []
-  return JsonResponse({'status': True, 'message': '', 'data': data})
+  return JsonResponse({'status': True, 'message': '', 'data': { 'data': data }})
+
 
 def useradd(request):
   role = request.payload.get('role')
@@ -175,7 +176,7 @@ def userleavelist(request):
         'status': item.status
       } for item in userleave
     ] 
-    return JsonResponse({'status': True, 'message': '查询成功', 'data': data})
+    return JsonResponse({'status': True, 'message': '查询成功', 'data': { 'data': data }})
   except:
     return JsonResponse({'status': True, 'message': '暂无数据', 'data': {}})
 
@@ -223,7 +224,7 @@ def ticketlist(request):
         'end_time': datetime.datetime.fromtimestamp(item.end_time + 1577808000).strftime('%Y-%m-%d %H:%M:%S') if item.end_time else '',
       } for item in tickets
     ]
-    return JsonResponse({'status': True, 'message': '', 'data': data})
+    return JsonResponse({'status': True, 'message': '', 'data': { 'data': data }})
   elif role == 1:
     try:
       tickets = Tickets.objects.all().iterator()
@@ -234,12 +235,12 @@ def ticketlist(request):
           'create_time': datetime.datetime.fromtimestamp(item.create_time + 1577808000).strftime('%Y-%m-%d %H:%M:%S'),
           'status': item.status,
           'message': item.message,
-          'user': item.user_id,
+          'user': item.user,
           'start_time': datetime.datetime.fromtimestamp(item.start_time + 1577808000).strftime('%Y-%m-%d %H:%M:%S') if item.start_time else '',
           'end_time': datetime.datetime.fromtimestamp(item.end_time + 1577808000).strftime('%Y-%m-%d %H:%M:%S') if item.end_time else '',
         } for item in tickets
       ] 
-      return JsonResponse({'status': True, 'message': '操作成功', 'data': data})
+      return JsonResponse({'status': True, 'message': '操作成功', 'data': { 'data': data }})
     except Tickets.DoesNotExist:
       return JsonResponse({'status': True, 'message': '暂无数据', 'data': {}})
 
