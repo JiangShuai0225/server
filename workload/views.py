@@ -107,20 +107,16 @@ def useredit(request):
     return JsonResponse({'status': False, 'message': '权限不足', 'data': {}})
   try:
     user = Users.objects.get(id=id)
-    print(user)
     nickname = request.data.get('nickname') 
     telephone = request.data.get('telephone')
-    print(nickname, telephone)
     if role == 1:
       user_role = request.data.get('role')
       status = request.data.get('status')
       user.role = user_role
       user.status = status
-      print(user_role, status)
     user.nickname = nickname
     user.telephone = telephone
     user.save()
-    print('okok')
     return JsonResponse({'status': True, 'message': '修改成功', 'data': {}})
   except Users.DoesNotExist:
     return JsonResponse({'status': False, 'message': '用户不存在', 'data': {}})
