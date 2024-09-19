@@ -63,7 +63,7 @@ def home(request): # 总共单数，待分配工单数， 待处理工单数 ，
 def userlist(request):
   role = request.payload.get('role')
   if role == 1:
-    users = Users.objects.filter(status=0|1|2).iterator()
+    users = Users.objects.filter(status=0|status=1|status=2).iterator()
     data = [
       {
         'id': user.id,
